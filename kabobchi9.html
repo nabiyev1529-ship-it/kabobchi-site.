@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kabobchi — An'anaviy kaboblar va gazli ichimliklar</title>
+<meta name="description" content="Kabobchi — an'anaviy kaboblar, maxsus taomlar va gazli ichimliklar. Buyurtma berish: +998500061020">
+<meta name="keywords" content="kabob, steyk, maxsus kabob, gazli ichimliklar, sok, buyurtma">
+<meta name="robots" content="index, follow">
+
+<!-- Open Graph (Facebook) -->
+<meta property="og:title" content="Kabobchi — An'anaviy kaboblar va gazli ichimliklar">
+<meta property="og:description" content="Kabobchi — an'anaviy kaboblar, maxsus taomlar va gazli ichimliklar. Buyurtma berish: +998500061020">
+<meta property="og:type" content="website">
+<meta property="og:image" content="images/logo.png">
+<meta property="og:url" content="https://sizningsayt.uz">
+
+<!-- Favicon -->
+<link rel="icon" href="images/logo.png" type="image/png">
+
+<style>
+:root{
+  --bg:#0f1724; --card:#0b1220; --accent:#ff6b35; --muted:#94a3b8;
+  --radius:14px; --maxw:1200px; font-family: Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+}
+*{box-sizing:border-box}
+body{
+  margin:0; background:linear-gradient(180deg,#071028 0%, #071826 100%);
+  color:#e6eef6; -webkit-font-smoothing:antialiased;
+  display:flex; justify-content:center; padding:28px;
+}
+.site{width:100%; max-width:var(--maxw);}
+header{display:flex; align-items:center; justify-content:space-between; margin-bottom:22px}
+.logo{display:flex; align-items:center; gap:12px}
+.logo .mark{
+  width:90px; height:90px; border-radius:16px; display:flex; align-items:center; justify-content:center;
+  background: url('images/logo.png') center/cover no-repeat;
+}
+.logo h1{font-size:42px; margin:0; font-weight:800; letter-spacing:1px}
+.lead{color:var(--muted); font-size:14px; margin:4px 0 0 0}
+.btn{background:var(--accent); color:#071026; padding:10px 14px; border-radius:10px; border:0; cursor:pointer; font-weight:700}
+.btn.alt{background:transparent; color:#e6eef6; border:1px solid rgba(255,255,255,0.08)}
+.btn:active{transform:scale(.995)}
+.container{display:grid; grid-template-columns:1fr; gap:24px}
+h2.section-title{margin:0 0 8px 0; font-size:20px}
+.menu-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:14px; margin-top:10px}
+.card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border-radius:12px; overflow:hidden; box-shadow:0 6px 24px rgba(2,6,23,0.6)}
+.item{cursor:pointer; transition:transform .18s ease, box-shadow .18s ease}
+.item:hover{transform:translateY(-6px); box-shadow:0 8px 30px rgba(0,0,0,0.5)}
+.item img{width:100%; height:170px; object-fit:cover; display:block}
+.item .info{padding:12px}
+.item h4{margin:0 0 6px 0; font-size:16px}
+.muted{color:var(--muted); font-size:13px}
+.price{font-weight:800; margin-top:8px}
+.modal{display:none; position:fixed; inset:0; background:rgba(3,6,12,0.75); align-items:center; justify-content:center; z-index:60; padding:20px}
+.modal-inner{background:#071026; border-radius:12px; max-width:760px; width:100%; color:#e6eef6; overflow:hidden; display:flex; gap:12px}
+.modal-left{flex:1; min-width:260px}
+.modal-left img{width:100%; height:100%; object-fit:cover; display:block}
+.modal-right{flex:1; padding:18px}
+.close{position:absolute; top:18px; right:22px; font-size:28px; color:#fff; cursor:pointer}
+.small-list{margin:10px 0 0 0; padding-left:18px}
+.small-list li{margin-bottom:6px; color:var(--muted)}
+@media(max-width:880px){
+  .modal-inner{flex-direction:column}
+  .logo .mark{width:68px;height:68px;font-size:32px}
+  .logo h1{font-size:28px}
+}
+.section-sub{color:var(--muted); font-size:13px; margin-top:6px}
+.separator{height:1px; background:rgba(255,255,255,0.03); margin:24px 0}
+</style>
+</head>
+<body>
+<div class="site">
+  <header>
+    <div class="logo">
+      <div class="mark"></div>
+      <div>
+        <h1>Kabobchi</h1>
+        <div class="lead">An'anaviy kaboblar — yangi va lazzatli</div>
+      </div>
+    </div>
+    <div style="display:flex; gap:10px; align-items:center">
+      <div class="muted" style="text-align:right">Buyurtma uchun qo'ng'iroq: <br><strong>+998 50 006 10 20</strong></div>
+      <button class="btn" onclick="callNumber()">☎ Qo'ng'iroq</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- STEAK menyusi -->
+    <section class="card" style="padding:16px;">
+      <h2 class="section-title">Steyk menyusi</h2>
+      <div class="section-sub">Steyklar — salatdan oldin ko'rsatiladi</div>
+      <div class="menu-grid" id="steakGrid"></div>
+    </section>
+
+    <!-- Maxsus Kebab menyusi -->
+    <section class="card" style="padding:16px;">
+      <h2 class="section-title">Maxsus Kebab menyusi</h2>
+      <div class="section-sub">Maxsus taomlar</div>
+      <div class="menu-grid" id="specialKebabGrid"></div>
+    </section>
+
+    <!-- Maxsus Kebabchi -->
+    <section class="card" style="padding:16px;">
+      <h2 class="section-title">Maxsus Kebabchi</h2>
+      <div class="section-sub">Yangi to'plam</div>
+      <div class="menu-grid" id="maxsusKebabchiGrid"></div>
+    </section>
+
+    <!-- Gazli ichimliklar -->
+    <section class="card" style="padding:16px;">
+      <h2 class="section-title">Gazli ichimliklar</h2>
+      <div class="section-sub">Har bir litr uchun narx ko'rsatilgan</div>
+      <div class="menu-grid" id="drinksGrid"></div>
+    </section>
+
+    <div class="separator"></div>
+
+    <footer style="text-align:center; color:var(--muted); font-size:13px;">
+      © <span id="year"></span> Kabobchi • Telefon: +998 50 006 10 20 • Manzil: (ADDRESS_PLACEHOLDER)
+    </footer>
+  </main>
+</div>
+
+<!-- MODAL -->
+<div id="modal" class="modal" onclick="if(event.target.id==='modal') closeModal()">
+  <div class="modal-inner" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-left" id="modalImageWrap">
+      <img id="modalImg" src="images/placeholder.jpg" alt="">
+    </div>
+    <div class="modal-right" id="modalContent">
+      <h3 id="modalTitle" style="margin:0 0 8px 0"></h3>
+      <div id="modalDesc" class="muted"></div>
+      <div id="modalContents" style="margin-top:10px"></div>
+      <div style="margin-top:12px">
+        <div class="price" id="modalPrice"></div>
+        <div class="muted" id="modalTime" style="margin-top:6px"></div>
+      </div>
+      <div style="margin-top:14px; display:flex; gap:8px;">
+        <button class="btn" onclick="callNumber()">Buyurtma: ☎ Qo'ng'iroq</button>
+        <button class="btn alt" onclick="closeModal()">Yopish</button>
+      </div>
+    </div>
+    <div class="close" onclick="closeModal()">&times;</div>
+  </div>
+</div>
+
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+function callNumber(){ window.location.href = 'tel:+998500061020'; }
+function escapeHtml(str){ if(!str) return ''; return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function openModal(item){
+  const modal = document.getElementById('modal');
+  document.getElementById('modalImg').src = item.img || 'images/placeholder.jpg';
+  document.getElementById('modalImg').alt = item.name;
+  document.getElementById('modalTitle').textContent = item.name;
+  document.getElementById('modalDesc').textContent = item.desc || '';
+  const contentsEl = document.getElementById('modalContents');
+  if(item.sizes){
+    contentsEl.innerHTML='<div class="muted" style="margin-top:8px">Hajmlar:</div><ul class="small-list">'+
+      item.sizes.map(s=>`<li>${s} l — ${item.prices[s]} UZS</li>`).join('')+'</ul>';
+    document.getElementById('modalPrice').textContent='';
+  } else {
+    contentsEl.innerHTML='';
+    document.getElementById('modalPrice').textContent = item.price ? item.price+' UZS':''; 
+  }
+  document.getElementById('modalTime').textContent = item.time ? item.time:'';
+  modal.style.display = 'flex';
+}
+function closeModal(){ document.getElementById('modal').style.display='none'; }
+
+function renderGrid(arr, gridId){
+  const grid=document.getElementById(gridId); grid.innerHTML='';
+  arr.forEach(item=>{
+    const div=document.createElement('div'); div.className='item card';
+    let priceHtml='';
+    if(item.sizes){
+      priceHtml = item.sizes.map(s=>`${s} l — ${item.prices[s]} UZS`).join('<br>');
+    } else {
+      priceHtml = item.price ? item.price+' UZS' : '';
+    }
+    div.innerHTML=`<img src="${item.img}" alt="${escapeHtml(item.name)}">
+      <div class="info">
+        <h4>${escapeHtml(item.name)}</h4>
+        <div class="muted">${escapeHtml(item.desc||'')}</div>
+        <div class="price">${priceHtml}</div>
+      </div>`;
+    div.onclick=()=>openModal(item);
+    grid.appendChild(div);
+  });
+}
+
+/* DATA */
+const steaks=[
+  {name:"T-bon", img:"images/tbone.jpg", desc:"Katta T-bone steyk", price:"75 000", time:"25 daqiqa"},
+  {name:"Stek bqin", img:"images/steak_big.jpg", desc:"Katta steyk", price:"85 000", time:"30 daqiqa"},
+  {name:"Tovuq stek", img:"images/steak_chicken.jpg", desc:"Tovuqdan steyk", price:"50 000", time:"18 daqiqa"}
+];
+const specialKebab=[
+  {name:"Turk kebab (25)", img:"images/turk_kebab.jpg", desc:"Turk uslubidagi kabob", price:"25 000"},
+  {name:"Paxlavon kebab", img:"images/paxlavon_kebab.jpg", desc:"Maxsus paxlavon taom", price:"35 000"},
+  {name:"Sirli desert", img:"images/sirli_desert.jpg", desc:"Sirli desert", price:"25 000"},
+  {name:"Kebab kiyma (12)", img:"images/kebab_kiyma.jpg", desc:"Kiyma kabob 12 ta", price:"12 000"}
+];
+const maxsusKebabchi=[
+  {name:"Gijduvon", img:"images/gijduvon.jpg", desc:"Gijduvon", price:"17 000"},
+  {name:"Mol jaz", img:"images/mol.jpg", desc:"Mol jaz", price:"18 000"},
+  {name:"Qo'y", img:"images/qoy.jpg", desc:"Qo'y go'shti", price:"18 000"},
+  {name:"Rulet", img:"images/rulet.jpg", desc:"Rulet", price:"22 000"},
+  {name:"Qanot", img:"images/kanot.jpg", desc:"Qanot", price:"17 000"},
+  {name:"Bedro", img:"images/bedro.jpg", desc:"Bedro", price:"15 000"},
+  {name:"Dumba", img:"images/dumba.jpg", desc:"Dumba", price:"18 000"}
+];
+const drinks=[
+  {name:"Coca-Cola", img:"images/kok.jpg", desc:"Gazli ichimlik", sizes:["0.25","0.5","1","1.5","2"], prices:{"0.25":"5 000","0.5":"7 000","1":"13 000","1.5":"15 000","2":"19 000"}},
+  {name:"Fanta", img:"images/fanta.jpg", desc:"Gazli ichimlik", sizes:["0.25","0.5","1","1.5","2"], prices:{"0.25":"5 000","0.5":"7 000","1":"13 000","1.5":"15 000","2":"19 000"}},
+  {name:"Pepsi", img:"images/pepsi.jpg", desc:"Gazli ichimlik", sizes:["0.25","0.5","1","1.5","2"], prices:{"0.25":"5 000","0.5":"7 000","1":"13 000","1.5":"15 000","2":"19 000"}},
+  {name:"Gazli suv", img:"images/soda.jpg", desc:"Gazli suv", sizes:["0.25","0.5","1","1.5","2"], prices:{"0.25":"5 000","0.5":"7 000","1":"13 000","1.5":"15 000","2":"19 000"}},
+  {name:"Sok", img:"images/juice.jpg", desc:"Turli soklar", sizes:["0.25","0.5","1","1.5","2"], prices:{"0.25":"5 000","0.5":"7 000","1":"13 000","1.5":"15 000","2":"19 000"}}
+];
+
+/* Render all */
+renderGrid(steaks,'steakGrid');
+renderGrid(specialKebab,'specialKebabGrid');
+renderGrid(maxsusKebabchi,'maxsusKebabchiGrid');
+renderGrid(drinks,'drinksGrid');
+
+document.addEventListener('keydown',function(e){ if(e.key==='Escape') closeModal(); });
+</script>
+</body>
+</html>
